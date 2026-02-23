@@ -1,6 +1,6 @@
 # db-access-practice
 
-JDBCを用いたPostgreSQLデータベース操作の習熟を目的として作成中です。
+JDBCを用いたPostgreSQLデータベース操作の習熟を目的として作成中です。<br>
 データベースはローカルに構築したDockerComposeコンテナを使用しています。
 
 ## 使用技術
