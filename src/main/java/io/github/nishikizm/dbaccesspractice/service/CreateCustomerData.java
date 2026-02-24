@@ -4,23 +4,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import io.github.nishikizm.dbaccesspractice.config.ConnectionProvider;
-import io.github.nishikizm.dbaccesspractice.model.Customer;
+import io.github.nishikizm.dbaccesspractice.domain.model.Customer;
 
 public class CreateCustomerData {
 
-    private static final String sql = 
+    private static final String SQL = 
         "INSERT INTO customers(CUSTOMER_NAME, EMAIL, BALANCE)" + 
         "VALUES(?, ?, ?)";
 
-    public int CreateData(Customer customer) throws SQLException {
-
+    public void CreateData(Customer customer) throws SQLException {
         try(Connection con = ConnectionProvider.connectionGet();
-            PreparedStatement ps = con.prepareStatement(sql)) {
-
+            PreparedStatement ps = con.prepareStatement(SQL)) {
                 ps.setString(1, customer.name());
                 ps.setString(2, customer.email());
                 ps.setBigDecimal(3, customer.balance());
-                return ps.executeUpdate();
+                ps.executeUpdate();
         }
     }
 }

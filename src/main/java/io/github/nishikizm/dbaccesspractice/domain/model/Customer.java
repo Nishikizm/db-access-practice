@@ -1,4 +1,4 @@
-package io.github.nishikizm.dbaccesspractice.model;
+package io.github.nishikizm.dbaccesspractice.domain.model;
 
 import java.math.BigDecimal;
 

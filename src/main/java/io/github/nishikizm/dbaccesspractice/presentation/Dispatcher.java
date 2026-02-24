@@ -1,11 +1,16 @@
 package io.github.nishikizm.dbaccesspractice.presentation;
 
 import java.math.BigDecimal;
+import java.sql.SQLException;
+
 import io.github.nishikizm.dbaccesspractice.domain.error.ExitCode;
+import io.github.nishikizm.dbaccesspractice.domain.model.Customer;
+import io.github.nishikizm.dbaccesspractice.service.CreateCustomerData;
+import io.github.nishikizm.dbaccesspractice.service.DeleteCustomerData;
 
 public class Dispatcher {
     
-    public ExitCode Dispatch(String[] args) {
+    public ExitCode dispatch(String[] args) {
         return switch(args[0].toUpperCase()) {
             case "CREATE" -> handleCreate(args);
             case "READ" -> handleRead(args);
@@ -17,12 +22,17 @@ public class Dispatcher {
 
     private ExitCode handleCreate(String[] args) {
         if(checkLength(4, args) == false) { return ExitCode.INVALID_ARG_ERROR; }
+        CreateCustomerData create = new CreateCustomerData();
+
         try {
-            parseBigDecimal(args[3]);
+            create.CreateData(new Customer(args[1], args[2], parseBigDecimal(args[3])));
         } catch(NumberFormatException e) {
             return ExitCode.INVALID_ARG_ERROR;
+        } catch(SQLException e) {
+            return ExitCode.SQL_ERROR;
         }
-        return null;
+        
+        return ExitCode.SUCCESS;
     }
 
     private ExitCode handleRead(String[] args) {
@@ -34,7 +44,17 @@ public class Dispatcher {
     }
 
     private ExitCode handleDelete(String[] args) {
-        return null;
+        if(checkLength(2, args) == false) { return ExitCode.INVALID_ARG_ERROR; }
+        DeleteCustomerData delete = new DeleteCustomerData();
+        try {
+            delete.DeleteData(parseInteger(args[1]));
+        } catch(NumberFormatException e) {
+            return ExitCode.INVALID_ARG_ERROR;
+        } catch(SQLException e) {
+            return ExitCode.SQL_ERROR;
+        }
+
+        return ExitCode.SUCCESS;
     }
 
     private boolean checkLength(int num, String[] args) {
@@ -44,6 +64,10 @@ public class Dispatcher {
 
     private BigDecimal parseBigDecimal(String number) {
         return new BigDecimal(number);
+    }
+
+    private int parseInteger(String number) {
+        return Integer.parseInt(number);
     }
 
 }

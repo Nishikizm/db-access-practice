@@ -14,12 +14,8 @@ public enum ExitCode {
         this.message = message;
     }
 
-    public int getId() {
-        return id;
-    }
+    public int getId() { return id; }
 
-    public String message() {
-        return message;
-    }
+    public String getMessage() { return message; }
 
 }
