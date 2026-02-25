@@ -12,7 +12,7 @@ public class CreateCustomerData {
         "INSERT INTO customers(CUSTOMER_NAME, EMAIL, BALANCE)" + 
         "VALUES(?, ?, ?)";
 
-    public void CreateData(Customer customer) throws SQLException {
+    public void createData(Customer customer) throws SQLException {
         try(Connection con = ConnectionProvider.connectionGet();
             PreparedStatement ps = con.prepareStatement(SQL)) {
                 ps.setString(1, customer.name());

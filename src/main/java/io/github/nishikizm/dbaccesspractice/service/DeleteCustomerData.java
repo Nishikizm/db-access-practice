@@ -11,7 +11,7 @@ public class DeleteCustomerData {
         "DELETE FROM customers " + 
         "WHERE customer_id = ?";
     
-    public void DeleteData(int id) throws SQLException {
+    public void deleteData(int id) throws SQLException {
         try(Connection con = ConnectionProvider.connectionGet();
             PreparedStatement ps = con.prepareStatement(SQL)) {
                 ps.setInt(1, id);

@@ -9,6 +9,7 @@ import io.github.nishikizm.dbaccesspractice.domain.model.Customer;
 import io.github.nishikizm.dbaccesspractice.service.CreateCustomerData;
 import io.github.nishikizm.dbaccesspractice.service.DeleteCustomerData;
 import io.github.nishikizm.dbaccesspractice.service.ReadCustomerData;
+import io.github.nishikizm.dbaccesspractice.service.UpdateCustomerData;
 
 public class Dispatcher {
     
@@ -27,7 +28,7 @@ public class Dispatcher {
         CreateCustomerData create = new CreateCustomerData();
 
         try {
-            create.CreateData(new Customer(args[1], args[2], parseBigDecimal(args[3])));
+            create.createData(new Customer(args[1], args[2], parseBigDecimal(args[3])));
         } catch(NumberFormatException e) {
             return ExitCode.INVALID_ARG_ERROR;
         } catch(SQLException e) {
@@ -42,7 +43,7 @@ public class Dispatcher {
         ReadCustomerData read = new ReadCustomerData();
         Customer customer;
         try {
-            customer = read.ReadData(parseInteger(args[1]));
+            customer = read.readData(parseInteger(args[1]));
         } catch(NumberFormatException e) {
             return ExitCode.INVALID_ARG_ERROR;
         } catch(SQLException e) {
@@ -56,14 +57,24 @@ public class Dispatcher {
     }
 
     private ExitCode handleUpdate(String[] args) {
-        return null;
+        if(checkLength(3, args) == false) { return ExitCode.INVALID_ARG_ERROR; }
+        UpdateCustomerData delete = new UpdateCustomerData();
+        try {
+            delete.updateData(parseInteger(args[1]), parseBigDecimal(args[2]));
+        } catch(NumberFormatException e) {
+            return ExitCode.INVALID_ARG_ERROR;
+        } catch(SQLException e) {
+            return ExitCode.SQL_ERROR;
+        }
+
+        return ExitCode.SUCCESS;
     }
 
     private ExitCode handleDelete(String[] args) {
         if(checkLength(2, args) == false) { return ExitCode.INVALID_ARG_ERROR; }
         DeleteCustomerData delete = new DeleteCustomerData();
         try {
-            delete.DeleteData(parseInteger(args[1]));
+            delete.deleteData(parseInteger(args[1]));
         } catch(NumberFormatException e) {
             return ExitCode.INVALID_ARG_ERROR;
         } catch(SQLException e) {

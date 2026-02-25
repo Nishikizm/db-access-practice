@@ -14,7 +14,7 @@ public class ReadCustomerData {
         "FROM customers " + 
         "WHERE customer_id = ?";
 
-    public Customer ReadData(int id) throws SQLException {
+    public Customer readData(int id) throws SQLException {
         try(Connection con = ConnectionProvider.connectionGet();
             PreparedStatement ps = con.prepareStatement(SQL)) {
                 ps.setInt(1, id);
