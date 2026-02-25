@@ -4,7 +4,8 @@ public enum ExitCode {
 
     SUCCESS(0, "処理完了"), 
     INVALID_ARG_ERROR(1, "引数が不正です"), 
-    SQL_ERROR(2, "DBエラーが発生しました");
+    SQL_ERROR(2, "DBエラーが発生しました"),
+    NOT_FOUND_ERROR(3, "データが見つかりませんでした");
 
     private final int id;
     private final String message;

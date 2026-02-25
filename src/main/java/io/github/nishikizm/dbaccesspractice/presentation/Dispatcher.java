@@ -2,11 +2,13 @@ package io.github.nishikizm.dbaccesspractice.presentation;
 
 import java.math.BigDecimal;
 import java.sql.SQLException;
+import java.util.Objects;
 
 import io.github.nishikizm.dbaccesspractice.domain.error.ExitCode;
 import io.github.nishikizm.dbaccesspractice.domain.model.Customer;
 import io.github.nishikizm.dbaccesspractice.service.CreateCustomerData;
 import io.github.nishikizm.dbaccesspractice.service.DeleteCustomerData;
+import io.github.nishikizm.dbaccesspractice.service.ReadCustomerData;
 
 public class Dispatcher {
     
@@ -36,7 +38,21 @@ public class Dispatcher {
     }
 
     private ExitCode handleRead(String[] args) {
-        return null;
+        if(checkLength(2, args) == false) { return ExitCode.INVALID_ARG_ERROR; }
+        ReadCustomerData read = new ReadCustomerData();
+        Customer customer;
+        try {
+            customer = read.ReadData(parseInteger(args[1]));
+        } catch(NumberFormatException e) {
+            return ExitCode.INVALID_ARG_ERROR;
+        } catch(SQLException e) {
+            return ExitCode.SQL_ERROR;
+        }
+        if(Objects.isNull(customer)) { return ExitCode.NOT_FOUND_ERROR; }
+
+        Printer printer = new Printer();
+        printer.print(customer);
+        return ExitCode.SUCCESS;
     }
 
     private ExitCode handleUpdate(String[] args) {
