@@ -45,3 +45,8 @@ JDBCを用いてPostgreSQLの *customers* テーブルに接続し、CRUD操作�
 
 - BigDecimalを使った金額の取り扱いの練習のため、テーブルに *balance* を含めた。
 - Docker Composeを用いたコンテナ環境での利用を想定してDB接続情報は *.env* に記述し、dotenv-javaを利用して読み込んでいる。
+
+## 関連リポジトリ
+
+PostgreSQL実行環境<br>
+**[postgresql-env]**（ https://github.com/Nishikizm/postgresql-env ）
