@@ -16,5 +16,5 @@ target/
 Thumbs.db
 .DS_Store
 
-# === Environment ===
+# === environment ===
 .env
