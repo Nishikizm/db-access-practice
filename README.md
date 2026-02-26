@@ -36,6 +36,7 @@ JDBCを用いてPostgreSQLの *customers* テーブルに接続し、CRUD操作�
 
 - Java 17
 - JDBC（PostgreSQL Driver）
+- dotenv-java（環境変数読み込み）
 - Maven
 - PostgreSQL 16
 - Docker Compose
@@ -43,3 +44,4 @@ JDBCを用いてPostgreSQLの *customers* テーブルに接続し、CRUD操作�
 ## 補足
 
 - BigDecimalを使った金額の取り扱いの練習のため、テーブルに *balance* を含めた。
+- Docker Composeを用いたコンテナ環境での利用を想定してDB接続情報は *.env* に記述し、dotenv-javaを利用して読み込んでいる。
